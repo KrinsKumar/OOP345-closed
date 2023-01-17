@@ -2,9 +2,9 @@
 #define FOODORDER_H
 #include <iostream>
     
-extern double  g_dailydiscount;
-
 extern double g_taxrate;
+
+extern double g_dailydiscount;
 
 namespace sdds {
 

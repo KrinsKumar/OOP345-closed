@@ -3,6 +3,10 @@
 
 using namespace std;
 
+
+double g_taxrate = 0.0;
+double g_dailydiscount = 0.0;
+
 namespace sdds {
 
     FoodOrder::FoodOrder() {
