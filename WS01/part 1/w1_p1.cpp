@@ -21,9 +21,9 @@
 
 int main(int argc, char** argv) {
 	std::cout << "Command Line:\n";
-    std::cout << argv[1];
-    std::cout << argv[2];
-    std::cout << argv[3];
+    std::cout << "1: " << argv[1] << '\n';
+    std::cout << "2: " << argv[2] << '\n';
+    //std::cout << "3: " << argv[3] << '\n';
 
 	std::cout << "--------------------------\n\n";
 
