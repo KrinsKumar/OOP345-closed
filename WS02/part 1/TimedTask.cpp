@@ -26,6 +26,7 @@ namespace sdds {
     }
 
     ostream& operator<<(ostream& out, const TimedTask right_Timedtask) {
+        out << "--------------------------" << endl;
         out << "Execution Times:" << endl;
         out << "--------------------------" << endl;
 

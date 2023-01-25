@@ -13,7 +13,9 @@ namespace sdds {
             ProteinDatabase();
             ProteinDatabase(const std::string file_name);
             ProteinDatabase(const ProteinDatabase& right_protein);
+            ProteinDatabase(ProteinDatabase&& right_protein) noexcept;
             ProteinDatabase& operator=(const ProteinDatabase& right_protein);
+            ProteinDatabase& operator=(ProteinDatabase&& right_protein) noexcept;
             size_t size();
             std::string operator[](size_t index);
             ~ProteinDatabase();

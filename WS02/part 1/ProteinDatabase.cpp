@@ -1,6 +1,7 @@
 #include "ProteinDatabase.h"
 #include <fstream>
 #include <iostream>
+#include <utility>
 
 using namespace std;
 
@@ -14,10 +15,13 @@ namespace sdds {
         *this = right_protein;
     }
 
+    ProteinDatabase::ProteinDatabase(ProteinDatabase&& right_protein) noexcept {
+        *this = move(right_protein);
+    }
+
     ProteinDatabase& ProteinDatabase::operator=(const ProteinDatabase& right_protein) {
        
         delete[] m_str;    // deleting the old memory
-       
         m_cnt_str = right_protein.m_cnt_str;    // shallow copy of static variables
 
         // deep copy of the dynamic variables
@@ -29,8 +33,19 @@ namespace sdds {
         return *this;
     }
 
+    ProteinDatabase& ProteinDatabase::operator=(ProteinDatabase&& right_protein) noexcept {
+        delete[] m_str;    // deleting the old memory
+        m_cnt_str = right_protein.m_cnt_str;    // shallow copy of static variables
+    
+        m_str = right_protein.m_str;
+        right_protein.m_str = nullptr;
+
+        return *this;
+    }
+
     ProteinDatabase::ProteinDatabase(const std::string file_name) {
         ifstream file(file_name);
+        m_cnt_str = 0;
         if (file.is_open() != false) {
 
             string line;
@@ -47,9 +62,8 @@ namespace sdds {
             auto counter = 0u;
             while (file) {    // untill the end of the file is reached
                 getline(file, line);
-                if (line[1] != '>') {
+                if (line[0] != '>') {
                     string templine = "";
-                    line = "";
                     while (getline(file, templine) && templine[0] != '>') {
                         m_str[counter] = line + templine;
                         line = m_str[counter];
