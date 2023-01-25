@@ -1,3 +1,11 @@
+/*
+    Name - Krinskumar Bhaveshkumar Vaghasia
+    Seneca ID - 169722212
+    Seneca email - kvaghasia@myseneca.ca
+    Date of Completion - 24 January, 2023
+*/
+// I have done all the coding by myself and only copied the code that my professor provided to complete my workshops and assignments.
+
 #include "ProteinDatabase.h"
 #include <fstream>
 #include <iostream>
@@ -21,24 +29,29 @@ namespace sdds {
 
     ProteinDatabase& ProteinDatabase::operator=(const ProteinDatabase& right_protein) {
        
-        delete[] m_str;    // deleting the old memory
-        m_cnt_str = right_protein.m_cnt_str;    // shallow copy of static variables
+        if (this != &right_protein) {
+            delete[] m_str;    // deleting the old memory
+            m_cnt_str = right_protein.m_cnt_str;    // shallow copy of static variables
 
-        // deep copy of the dynamic variables
-        m_str = new string[m_cnt_str];
-        for (auto i = 0u; i < m_cnt_str; ++i) {
-            m_str[i] = right_protein.m_str[i];
+            // deep copy of the dynamic variables
+            m_str = new string[m_cnt_str];
+            for (auto i = 0u; i < m_cnt_str; ++i) {
+                m_str[i] = right_protein.m_str[i];
+            }
         }
 
         return *this;
     }
 
     ProteinDatabase& ProteinDatabase::operator=(ProteinDatabase&& right_protein) noexcept {
-        delete[] m_str;    // deleting the old memory
-        m_cnt_str = right_protein.m_cnt_str;    // shallow copy of static variables
+        if (this != &right_protein) {
+            delete[] m_str;    // deleting the old memory
+            m_cnt_str = right_protein.m_cnt_str;    // shallow copy of static variables
     
-        m_str = right_protein.m_str;
-        right_protein.m_str = nullptr;
+            m_str = right_protein.m_str;
+            right_protein.m_str = nullptr;
+            right_protein.m_cnt_str = 0;
+        }
 
         return *this;
     }
