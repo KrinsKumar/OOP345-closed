@@ -59,7 +59,7 @@ namespace sdds {
     Pair Collection<Pair, 100>::operator[](size_t index) const {
         Pair returnPair;
 
-        if (m_currentCnt < index) {
+        if (m_currentCnt > index) {
             returnPair = m_data[index];
         }
 

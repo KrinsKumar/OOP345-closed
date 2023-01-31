@@ -25,7 +25,7 @@ namespace sdds {
     bool sdds::Pair::operator==(const Pair& rightPair) const {
         bool returnBool = false;
         
-        if (m_key == rightPair.getKey() && m_value == rightPair.getValue()) {
+        if (m_key == rightPair.getKey()) {
             returnBool = true;
         }
 
