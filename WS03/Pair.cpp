@@ -4,8 +4,6 @@ using namespace std;
 
 namespace sdds {
     Pair::Pair() {
-        m_key = "No Key";
-        m_value = "No Value";
     }
     
     Pair& sdds::Pair::operator=(const Pair& rightPair) {
