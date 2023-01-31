@@ -88,11 +88,11 @@ namespace sdds {
         }
     }
 
-    size_t ProteinDatabase::size() {
+    size_t ProteinDatabase::size() const {
         return m_cnt_str;
     }
 
-    std::string ProteinDatabase::operator[](size_t index) {
+    std::string ProteinDatabase::operator[](size_t index) const {
         string return_string = "";
         if (index < m_cnt_str) {
             return_string = m_str[index];
