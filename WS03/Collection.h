@@ -4,23 +4,24 @@
 
 namespace sdds {
 
-    template <typename T, size_t SIZE>
+    template<typename T, size_t SIZE>
         class Collection {
             T m_data[SIZE]{};
             size_t m_currentCnt = 0;
             public:
                 size_t size() const;
                 std::ostream& display(std::ostream& os = std::cout) const;
-                bool add(const T& item);
+                virtual bool add(const T& item);
                 T operator[](size_t index) const;
+                virtual ~Collection(){};
         };
 
-    template <typename T, size_t SIZE>
+    template<typename T, size_t SIZE>
     size_t Collection<T, SIZE>::size() const {
         return m_currentCnt;
     }
 
-    template <typename T, size_t SIZE> 
+    template<typename T, size_t SIZE> 
     std::ostream& Collection<T, SIZE>::display(std::ostream& os) const {
         os << "----------------------" << std::endl;
         os << "| Collection Content |" << std::endl;
@@ -32,7 +33,7 @@ namespace sdds {
         return os;
     }
 
-    template <typename T, size_t SIZE>
+    template<typename T, size_t SIZE>
     bool Collection<T, SIZE>::add(const T& item) {
         bool returnBool = false;
 
@@ -45,7 +46,7 @@ namespace sdds {
         return returnBool;
     }
 
-    template <typename T, size_t SIZE>
+    template<typename T, size_t SIZE>
     T Collection<T, SIZE>::operator[](size_t index) const {
         T returnCollection{};
         if (m_currentCnt > index) {
@@ -54,7 +55,7 @@ namespace sdds {
         return returnCollection;
     }
 
-    template <>
+    template<>
     Pair Collection<Pair, 100>::operator[](size_t index) const {
         Pair returnPair;
 

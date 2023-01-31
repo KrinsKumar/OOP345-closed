@@ -22,4 +22,14 @@ namespace sdds {
         return os;
     }
 
+    bool sdds::Pair::operator==(const Pair& rightPair) const {
+        bool returnBool = false;
+        
+        if (m_key == rightPair.getKey() && m_value == rightPair.getValue()) {
+            returnBool = true;
+        }
+
+        return returnBool;
+    }
+
 }

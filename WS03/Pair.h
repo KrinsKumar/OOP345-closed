@@ -16,6 +16,7 @@ namespace sdds {
             Pair(const std::string& key, const std::string& value) : m_key{ key }, m_value{ value }{};
 
             Pair& operator=(const Pair& rightPair);
+            bool operator==(const Pair& rightPair) const;
             friend std::ostream& operator<<(std::ostream& os ,const Pair& rightPair);
     };
 
