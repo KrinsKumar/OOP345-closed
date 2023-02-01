@@ -1,3 +1,11 @@
+/*
+    Name - Krinskumar Bhaveshkumar Vaghasia
+    Seneca ID - 169722212
+    Seneca email - kvaghasia@myseneca.ca
+    Date of Completion - 1st Feb, 2023
+*/
+// I have done all the coding by myself and only copied the code that my professor provided to complete my workshops and assignments.
+
 #ifndef SDDS_COLLECTION_H
 #define SDDS_COLLECTION_H
 #include "Pair.h"
@@ -57,7 +65,7 @@ namespace sdds {
 
     template<>
     Pair Collection<Pair, 100>::operator[](size_t index) const {
-        Pair returnPair;
+        Pair returnPair("No Key", "No Value");
 
         if (m_currentCnt > index) {
             returnPair = m_data[index];

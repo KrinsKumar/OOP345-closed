@@ -1,0 +1,106 @@
+In file included from w3_p2_prof.cpp:9:
+Set.h:9:50: error: wrong number of template arguments (1, should be 2)
+    9 |     class Set : public Collection<typename T, 100> {
+      |                                                  ^
+In file included from w3_p2_prof.cpp:7:
+Collection.h:8:15: note: provided for ‘template<class T, long unsigned int SIZE> class sdds::Collection’
+    8 |         class Collection {
+      |               ^~~~~~~~~~
+In file included from w3_p2_prof.cpp:9:
+Set.h: In member function ‘bool sdds::Set<T>::add(const T&) [with T = double]’:
+Set.h:32:43: error: cannot call member function ‘size_t sdds::Collection<T, SIZE>::size() const [with T = double; long unsigned int SIZE = 100; size_t = long unsigned int]’ without object
+   32 |         if (Collection<double, 100>::size() < 100) {
+      |                                           ^
+Set.h:34:65: error: cannot call member function ‘size_t sdds::Collection<T, SIZE>::size() const [with T = double; long unsigned int SIZE = 100; size_t = long unsigned int]’ without object
+   34 |             for (auto i = 0u; i < Collection<double, 100>::size() && matchNotFound; ++i) {
+      |                                                                 ^
+Set.h:35:68: error: cannot call member function ‘T sdds::Collection<T, SIZE>::operator[](size_t) const [with T = double; long unsigned int SIZE = 100; size_t = long unsigned int]’ without object
+   35 |                 if (std::fabs(Collection<double, 100>::operator[](i) - item) <= 0.01) {
+      |                                                                    ^
+Set.h:40:63: error: cannot call member function ‘bool sdds::Collection<T, SIZE>::add(const T&) [with T = double; long unsigned int SIZE = 100]’ without object
+   40 |                 returnBool = Collection<double, 100>::add(item);
+      |                                                               ^
+w3_p2_prof.cpp: In function ‘int main(int, char**)’:
+w3_p2_prof.cpp:66:45: error: ‘class sdds::Set<long int>’ has no member named ‘size’
+   66 |   std::cout << "Set size: [" << setIntegers.size() << "]\n";
+      |                                             ^~~~
+w3_p2_prof.cpp:67:15: error: ‘class sdds::Set<long int>’ has no member named ‘display’
+   67 |   setIntegers.display();
+      |               ^~~~~~~
+w3_p2_prof.cpp:69:43: error: no match for ‘operator[]’ (operand types are ‘sdds::Set<long int>’ and ‘int’)
+   69 |   std::cout << "Item [0]: " << setIntegers[0] << "\n";
+      |                                           ^
+w3_p2_prof.cpp:70:43: error: no match for ‘operator[]’ (operand types are ‘sdds::Set<long int>’ and ‘int’)
+   70 |   std::cout << "Item [5]: " << setIntegers[5] << "\n";
+      |                                           ^
+w3_p2_prof.cpp:71:43: error: no match for ‘operator[]’ (operand types are ‘sdds::Set<long int>’ and ‘int’)
+   71 |   std::cout << "Item [9]: " << setIntegers[9] << "\n";
+      |                                           ^
+w3_p2_prof.cpp:102:43: error: ‘class sdds::Set<double>’ has no member named ‘size’
+  102 |   std::cout << "Set size: [" << setFloats.size() << "]\n";
+      |                                           ^~~~
+w3_p2_prof.cpp:103:13: error: ‘class sdds::Set<double>’ has no member named ‘display’
+  103 |   setFloats.display();
+      |             ^~~~~~~
+w3_p2_prof.cpp:105:41: error: no match for ‘operator[]’ (operand types are ‘sdds::Set<double>’ and ‘int’)
+  105 |   std::cout << "Item [0]: " << setFloats[0] << "\n";
+      |                                         ^
+w3_p2_prof.cpp:106:41: error: no match for ‘operator[]’ (operand types are ‘sdds::Set<double>’ and ‘int’)
+  106 |   std::cout << "Item [5]: " << setFloats[5] << "\n";
+      |                                         ^
+w3_p2_prof.cpp:107:41: error: no match for ‘operator[]’ (operand types are ‘sdds::Set<double>’ and ‘int’)
+  107 |   std::cout << "Item [9]: " << setFloats[9] << "\n";
+      |                                         ^
+w3_p2_prof.cpp:141:47: error: ‘class sdds::Set<sdds::Pair>’ has no member named ‘size’
+  141 |   std::cout << "Set size: [" << setDictionary.size() << "]\n";
+      |                                               ^~~~
+w3_p2_prof.cpp:142:17: error: ‘class sdds::Set<sdds::Pair>’ has no member named ‘display’
+  142 |   setDictionary.display();
+      |                 ^~~~~~~
+w3_p2_prof.cpp:144:46: error: no match for ‘operator[]’ (operand types are ‘sdds::Set<sdds::Pair>’ and ‘int’)
+  144 |   std::cout << "Item [1]: [" << setDictionary[1].getKey()   << "]["
+      |                                              ^
+w3_p2_prof.cpp:145:46: error: no match for ‘operator[]’ (operand types are ‘sdds::Set<sdds::Pair>’ and ‘int’)
+  145 |                              << setDictionary[1].getValue() << "]\n";
+      |                                              ^
+w3_p2_prof.cpp:146:46: error: no match for ‘operator[]’ (operand types are ‘sdds::Set<sdds::Pair>’ and ‘int’)
+  146 |   std::cout << "Item [4]: [" << setDictionary[4].getKey()   << "]["
+      |                                              ^
+w3_p2_prof.cpp:147:46: error: no match for ‘operator[]’ (operand types are ‘sdds::Set<sdds::Pair>’ and ‘int’)
+  147 |                              << setDictionary[4].getValue() << "]\n";
+      |                                              ^
+w3_p2_prof.cpp:148:47: error: no match for ‘operator[]’ (operand types are ‘sdds::Set<sdds::Pair>’ and ‘int’)
+  148 |   std::cout << "Item [11]: [" << setDictionary[11].getKey()   << "]["
+      |                                               ^
+w3_p2_prof.cpp:149:47: error: no match for ‘operator[]’ (operand types are ‘sdds::Set<sdds::Pair>’ and ‘int’)
+  149 |                               << setDictionary[11].getValue() << "]\n";
+      |                                               ^
+In file included from w3_p2_prof.cpp:9:
+Set.h: In instantiation of ‘bool sdds::Set<T>::add(const T&) [with T = long int]’:
+w3_p2_prof.cpp:64:24:   required from here
+Set.h:17:37: error: cannot call member function ‘size_t sdds::Collection<T, SIZE>::size() const [with T = long int; long unsigned int SIZE = 100; size_t = long unsigned int]’ without object
+   17 |         if (Collection<T, 100>::size() < 100) {
+      |             ~~~~~~~~~~~~~~~~~~~~~~~~^~
+Set.h:19:59: error: cannot call member function ‘size_t sdds::Collection<T, SIZE>::size() const [with T = long int; long unsigned int SIZE = 100; size_t = long unsigned int]’ without object
+   19 |             for (auto i = 0u; i < Collection<T, 100>::size() && matchNotFound; ++i) {
+      |                                   ~~~~~~~~~~~~~~~~~~~~~~~~^~
+Set.h:20:51: error: cannot call member function ‘T sdds::Collection<T, SIZE>::operator[](size_t) const [with T = long int; long unsigned int SIZE = 100; size_t = long unsigned int]’ without object
+   20 |                 if (Collection<T, 100>::operator[](i) == item) matchNotFound = false;
+      |                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~
+Set.h:23:53: error: cannot call member function ‘bool sdds::Collection<T, SIZE>::add(const T&) [with T = long int; long unsigned int SIZE = 100]’ without object
+   23 |                 returnBool = Collection<T, 100>::add(item);
+      |                              ~~~~~~~~~~~~~~~~~~~~~~~^~~~~~
+Set.h: In instantiation of ‘bool sdds::Set<T>::add(const T&) [with T = sdds::Pair]’:
+w3_p2_prof.cpp:139:26:   required from here
+Set.h:17:37: error: cannot call member function ‘size_t sdds::Collection<T, SIZE>::size() const [with T = sdds::Pair; long unsigned int SIZE = 100; size_t = long unsigned int]’ without object
+   17 |         if (Collection<T, 100>::size() < 100) {
+      |             ~~~~~~~~~~~~~~~~~~~~~~~~^~
+Set.h:19:59: error: cannot call member function ‘size_t sdds::Collection<T, SIZE>::size() const [with T = sdds::Pair; long unsigned int SIZE = 100; size_t = long unsigned int]’ without object
+   19 |             for (auto i = 0u; i < Collection<T, 100>::size() && matchNotFound; ++i) {
+      |                                   ~~~~~~~~~~~~~~~~~~~~~~~~^~
+Set.h:20:51: error: cannot call member function ‘T sdds::Collection<T, SIZE>::operator[](size_t) const [with T = sdds::Pair; long unsigned int SIZE = 100; size_t = long unsigned int]’ without object
+   20 |                 if (Collection<T, 100>::operator[](i) == item) matchNotFound = false;
+      |                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~
+Set.h:23:53: error: cannot call member function ‘bool sdds::Collection<T, SIZE>::add(const T&) [with T = sdds::Pair; long unsigned int SIZE = 100]’ without object
+   23 |                 returnBool = Collection<T, 100>::add(item);
+      |                              ~~~~~~~~~~~~~~~~~~~~~~~^~~~~~
