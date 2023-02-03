@@ -22,13 +22,13 @@ namespace sdds {
     template<typename T>
     bool Set<T>::add(const T& item) {
         bool returnBool = false;
-        if (Collection<T, 100>::size() < 100) {
+        if ((*this).size() < 100) {
             bool matchNotFound = true;
-            for (auto i = 0u; i < Collection<T, 100>::size() && matchNotFound; ++i) {
-                if (Collection<T, 100>::operator[](i) == item) matchNotFound = false;
+            for (auto i = 0u; i < (*this).size() && matchNotFound; ++i) {
+                if ((*this)[i] == item) matchNotFound = false;
             }
             if (matchNotFound == true) {
-                returnBool = Collection<T, 100>::add(item);
+                returnBool = (*this).add(item);
             }
         }
         return returnBool;
@@ -37,15 +37,15 @@ namespace sdds {
     template<>
     bool Set<double>::add(const double& item) {
         bool returnBool = false;
-        if (Collection<double, 100>::size() < 100) {
+        if ((*this).size() < 100) {
             bool matchNotFound = true;
-            for (auto i = 0u; i < Collection<double, 100>::size() && matchNotFound; ++i) {
-                if (std::fabs(Collection<double, 100>::operator[](i) - item) <= 0.01) {
+            for (auto i = 0u; i < (*this).size() && matchNotFound; ++i) {
+                if (std::fabs((*this)[i] - item) <= 0.01) {
                     matchNotFound = false;
                 }
             }
             if (matchNotFound == true) {
-                returnBool = Collection<double, 100>::add(item);
+                returnBool = (*this).add(item);
             }
         }
         return returnBool;
