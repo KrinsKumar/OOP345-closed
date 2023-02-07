@@ -1,4 +1,5 @@
 #include <utility>
+#include <iomanip>
 #include "Toy.h"
 
 using namespace std;
@@ -41,34 +42,38 @@ namespace sdds {
 
         temp1.erase(0, index + 1);
         while (temp1[0] == ' ') temp1.erase(temp1.find(' '), 1);
-        m_price = stoi(temp1);
+        m_price = stod(temp1);
     }
 
     std::ostream& operator<<(std::ostream& os, const Toy& toy) {
         
-        os << "Toy ";
+        os << "Toy";
         
         os.width(8);
-        os.fill(' ');
         os << toy.m_orderId << ":";
 
         os.width(18);
         os.setf(ios::right);
-        os << toy.m_name << " ";
+        os << toy.m_name;
+        os.unsetf(ios::right);
 
         os.width(3);
         os << toy.m_count << " items";
 
         os.width(8);
-        os << toy.m_price << "/item subtotal:";
+        os << toy.m_price << "/item  subtotal:";
 
         os.width(7);
         os << toy.m_count * toy.m_price << " tax:";
 
         os.width(6);
+        os << fixed;
+        os << setprecision(2);
         os << toy.m_count * toy.m_price * 0.13 << " total:";
 
         os.width(7);
+        os << fixed;
+        os << setprecision(2);
         os << toy.m_count * toy.m_price * 1.13 << endl;
         return os;
     }

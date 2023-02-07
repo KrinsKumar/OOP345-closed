@@ -11,8 +11,8 @@ namespace sdds {
             size_t m_orderId;
             std::string m_name;
             size_t m_count;
-            size_t m_price;
-            size_t m_tax;
+            double m_price;
+            double m_tax;
         public:
             Toy();
             void update(int numItems);
