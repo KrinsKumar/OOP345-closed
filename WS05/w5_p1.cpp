@@ -35,6 +35,24 @@ int main(int argc, char** argv)
 		//       - lines that start with "#" are considered comments and should be ignored
 		//       - if the file cannot be open, print a message to standard error console and
 		//                exit from application with error code "AppErrors::CannotOpenFile"
+        std::ifstream ifs(argv[1]);
+        if (ifs.is_open() == true) {
+            std::string temp;    // to store the temp string
+            size_t count = 0;
+
+            while (getline(ifs, temp)) {
+                if (temp[0] != '#') {
+                    Book tempBook(temp);
+                    library[count] = tempBook;    // shallow copies the members
+                    ++count;
+                }
+            }
+        }
+        else {
+            std::cerr << "ERROR: File cannot open\n";
+            exit(AppErrors::CannotOpenFile);
+        }
+        ifs.close();
 	}
 	else
 	{
@@ -51,28 +69,42 @@ int main(int argc, char** argv)
 	//            and save the new price in the book object
 	//       - if the book was published in UK between 1990 and 1999 (inclussive),
 	//            multiply the price with "gbpToCadRate" and save the new price in the book object
-
+    auto updatePrice = [usdToCadRate, gbpToCadRate](Book& book) {
+        if(book.country() == "US") {
+            book.updatePrice(book.price() * usdToCadRate);
+        }
+        if (book.country() == "UK") {
+            if (book.year() <= 1999 && book.year() >= 1990) {
+                book.updatePrice(book.price() * gbpToCadRate);
+            }
+        }
+    };
 
 
 	std::cout << "-----------------------------------------\n";
 	std::cout << "The library content\n";
 	std::cout << "-----------------------------------------\n";
 	// TODO: iterate over the library and print each book to the screen
-
-
+    for (auto i = 0; i < 7; ++i) {
+        std::cout << library[i];
+    }
 
 	std::cout << "-----------------------------------------\n\n";
 
 	// TODO: iterate over the library and update the price of each book
 	//         using the lambda defined above.
-
+    for (auto i = 0; i < 7; ++i) {
+        updatePrice(library[i]);
+    }
 
 
 	std::cout << "-----------------------------------------\n";
 	std::cout << "The library content (updated prices)\n";
 	std::cout << "-----------------------------------------\n";
 	// TODO: iterate over the library and print each book to the screen
-
+    for (auto i = 0; i < 7; ++i) {
+        std::cout << library[i];
+    }
 
 
 	std::cout << "-----------------------------------------\n";
