@@ -1,4 +1,10 @@
-
+/*
+    Name - Krinskumar Bhaveshkumar Vaghasia
+    Seneca ID - 169722212
+    Seneca email - kvaghasia@myseneca.ca
+    Date of Completion - 14 February, 2023
+*/
+// I have done all the coding by myself and only copied the code that my professor provided to complete my workshops and assignments.
 #include <iomanip>
 #include "Book.h"
 

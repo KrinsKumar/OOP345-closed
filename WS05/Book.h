@@ -1,3 +1,10 @@
+/*
+    Name - Krinskumar Bhaveshkumar Vaghasia
+    Seneca ID - 169722212
+    Seneca email - kvaghasia@myseneca.ca
+    Date of Completion - 14 February, 2023
+*/
+// I have done all the coding by myself and only copied the code that my professor provided to complete my workshops and assignments.
 #ifndef SDDS_BOOKS_H
 #define SDDS_BOOKS_H
 
@@ -7,7 +14,6 @@
 // TODO reflect justification of the types used in the member
 // custom members added
 // member tpyes used in the movie class for the members
-
 
 namespace sdds {
 
