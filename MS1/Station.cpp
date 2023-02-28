@@ -49,12 +49,14 @@ namespace sdds {
 
 
     void Station::display(std::ostream& os, bool full) const {
-        os.fill(' ');
+        os.fill('0');
         os.width(3);
         os << m_id << " | ";
+        os.fill(' ');
         os.width(m_widthField);
         os << m_name << " | " ;
         os.width(6);
+        os.fill('0');
         os << m_srlNumber << " | ";
         if (full != false) {
             os.width(4);
