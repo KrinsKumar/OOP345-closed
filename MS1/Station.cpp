@@ -54,11 +54,14 @@ namespace sdds {
         os << m_id << " | ";
         os.fill(' ');
         os.width(m_widthField);
-        os << m_name << " | " ;
+        os.setf(ios::left);
+        os << m_name << "  | " ;
+        os.unsetf(ios::left);
         os.width(6);
         os.fill('0');
         os << m_srlNumber << " | ";
         if (full != false) {
+            os.fill(' ');
             os.width(4);
             os << m_cnt << " | " << m_desc;
         }
