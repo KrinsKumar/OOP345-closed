@@ -1,6 +1,6 @@
 #ifndef SDDS_PERSON_H
 #define SDDS_PERSON_H
-#include <iostream>
+
 #include <string>
 
 namespace sdds
