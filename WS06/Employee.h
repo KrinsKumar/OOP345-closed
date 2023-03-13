@@ -8,9 +8,6 @@
 #ifndef SDDS_EMPLOYEE_H
 #define SDDS_EMPLOYEE_H
 
-// Types used here for the reflection, operator ==
-// college destructor
-
 #include <string>
 #include "Person.h"
 

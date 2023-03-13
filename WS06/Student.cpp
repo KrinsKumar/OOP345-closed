@@ -54,6 +54,7 @@ namespace sdds {
             throw(message);
         }
 
+        m_courses = new string[m_count];
         //to get the courses
         for (auto i = 0u; i < m_count; ++i) {
             if (i == m_count - 1) getline(is, temp, '\n');
@@ -61,9 +62,7 @@ namespace sdds {
         
             while (temp[0] == ' ') temp.erase(0, 1);
             while (temp[temp.length() - 1] == ' ') temp.erase(temp.length() - 1, 1);
-            string* dynaString = new string;
-            *dynaString = temp;
-            m_courses.push_back(dynaString);
+            m_courses[i] = temp;
         }
 
     }
@@ -90,10 +89,9 @@ namespace sdds {
         returnStudent->m_name = m_name;
         returnStudent->m_id = m_id;
         returnStudent->m_count = m_count;
-        for (auto it = m_courses.begin(); it != m_courses.end(); ++it) {
-            string* course = new string;
-            *course = **it;
-            returnStudent->m_courses.push_back(course);
+        returnStudent->m_courses = new string[m_count];
+        for (auto i = 0u; i < m_count; ++i) {
+            returnStudent->m_courses[i] = m_courses[i];
         }
         
         return returnStudent;
@@ -113,15 +111,13 @@ namespace sdds {
         out << m_age << " |";
         out.unsetf(ios::left);
         for (auto i = 0u; i < m_count; ++i) {
-           out << *m_courses[i];
+           out << m_courses[i];
            if (i != m_count - 1) out << ", ";
         }
     }
     
     Student::~Student() {
-        for (auto it = m_courses.begin(); it != m_courses.end(); ++it) {
-           delete *it;
-        }
+        delete[] m_courses;
     }
 
 }

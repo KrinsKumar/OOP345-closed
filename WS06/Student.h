@@ -19,7 +19,7 @@ namespace sdds {
             std::string m_name;
             size_t m_age;
             std::string m_id;
-            std::vector<std::string*> m_courses;
+            std::string *m_courses;
             size_t m_count;
         public:
             Student() = default;
