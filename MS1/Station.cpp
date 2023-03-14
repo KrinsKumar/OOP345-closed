@@ -1,3 +1,10 @@
+/*
+    Name - Krinskumar Bhaveshkumar Vaghasia
+    Seneca ID - 169722212
+    Seneca email - kvaghasia@myseneca.ca
+    Date of Completion - 11 March, 2023
+*/
+// I have done all the coding by myself and only copied the code that my professor provided to complete my workshops and assignments.
 #include <iostream>
 #include "Utilities.h"
 #include "Station.h"
@@ -53,7 +60,9 @@ namespace sdds {
         os.width(3);
         os << m_id << " | ";
         os.fill(' ');
+        os.setf(ios::left);
         os.width(m_widthField);
+        os.unsetf(ios::left);
         os.setf(ios::left);
         os << m_name << "  | " ;
         os.unsetf(ios::left);
