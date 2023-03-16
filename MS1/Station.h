@@ -18,9 +18,9 @@ namespace sdds {
         std::string m_desc;
         size_t m_srlNumber;
         size_t m_cnt;
+        static size_t m_widthField;
+        static size_t m_id_generator;
         public:
-            static size_t m_widthField;
-            static size_t m_id_generator;
             Station(const std::string str);
             const std::string& getItemName() const;
             size_t getNextSerialNumber();

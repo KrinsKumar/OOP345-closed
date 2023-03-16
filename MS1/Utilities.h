@@ -14,8 +14,8 @@ namespace sdds {
 
     class Utilities {
         size_t m_widthField = 0;
+        static char m_delimiter;
         public:
-            static char m_delimiter;
             Utilities() = default;
             void setFileWidth(size_t newWidth);
             size_t getFieldWidth() const;

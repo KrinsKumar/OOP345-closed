@@ -1,0 +1,120 @@
+#include <iostream>
+#include <utility>
+#include "CustomerOrder.h"
+#include "Utilities.h"
+
+using namespace std;
+
+namespace sdds {
+
+    size_t CustomerOrder::m_widthField = 0;
+
+    CustomerOrder::CustomerOrder() {
+        m_name = "";
+        m_product = "";
+        m_cntItem = 0;
+    }
+
+    CustomerOrder::CustomerOrder(const std::string info) {
+        Utilities utLocal;
+        utLocal.setDelimiter('|');
+        size_t pos = 0u;
+        bool next = true;
+
+        try {
+            m_name = utLocal.extractToken(info, pos, next);
+            if (next) m_product = utLocal.extractToken(info, pos, next);
+
+            //to get the count of the items
+            auto itemsStart = pos;
+            size_t count = 0;
+            while (next) {
+                auto temp = utLocal.extractToken(info, pos, next);
+                ++count;
+            }
+
+            //to read and dynamically store the items
+            pos = itemsStart;
+            next = true;
+            m_cntItem = count;
+            m_lstItem = new Item*[m_cntItem + 1];
+            count = 0;
+            while (next) {
+                auto temp = utLocal.extractToken(info, pos, next);
+                m_lstItem[count] = new Item(temp);
+                ++count;
+            }
+
+            //to update the widthField
+            m_widthField = utLocal.getFieldWidth();
+
+        }
+        catch (const char* err) {
+            cout << err;
+        }
+        
+    }
+
+    CustomerOrder::CustomerOrder(const CustomerOrder& newOrder) {
+        m_name = "";
+        m_product = "";
+        m_cntItem = 0;
+        throw("Creating copies of CustomerOrder is not allowed!");
+    }
+
+    CustomerOrder::CustomerOrder(CustomerOrder&& newOrder) noexcept {
+        *this = move(newOrder);
+    }
+
+    CustomerOrder& CustomerOrder::operator=(CustomerOrder&& newOrder) noexcept {
+        m_name = newOrder.m_name;
+        m_product = newOrder.m_product;
+        m_cntItem = newOrder.m_cntItem;
+        m_widthField = newOrder.m_widthField;
+        m_lstItem = newOrder.m_lstItem;
+        newOrder.m_lstItem = nullptr;
+        return *this;
+    }
+
+    CustomerOrder::~CustomerOrder() {
+        for (auto i = 0u; i < m_cntItem; ++i) {
+            delete m_lstItem[i];
+        }
+        delete[] m_lstItem;
+    }
+
+    bool CustomerOrder::isOrderFilled() const {
+        bool returnBool = true;
+
+        for (auto i = 0u; i < m_cntItem; ++i) {
+            if (!m_lstItem[i]->m_isFilled) {
+                returnBool = false;
+                break;
+            }
+        }
+
+        return returnBool;
+    }
+
+    bool CustomerOrder::isItemFilled(const std::string& itemName) const {
+        bool returnBool = true;
+
+        for (auto i = 0u; i < m_cntItem; ++i) {
+            if (m_lstItem[i]->m_itemName == itemName && !m_lstItem[i]->m_isFilled) {
+                returnBool = false;
+                break;
+            }
+        }
+
+        return returnBool;
+    }
+
+    void CustomerOrder::fillItem(sdds::Station& station, std::ostream& os) {
+        
+    }
+
+    void CustomerOrder::display(std::ostream& os) const {
+    
+    }
+
+}
