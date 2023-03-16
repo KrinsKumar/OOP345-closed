@@ -28,7 +28,7 @@ namespace sdds {
                 while(temp2[0] == ' ') temp2.erase(0, 1);
                 while (temp2[temp2.length() - 1] == ' ') temp2.erase(temp2.length() - 1, 1);
                 if (temp2 == "Bread") good.m_type = BakedType::BREAD;
-                else good.m_type = BakedType::PASTRY;
+                else good.m_type = BakedType::PASTERY;
             
                 temp1 = temp1.erase(0, 8);
                 temp2 = temp1.substr(0, 20);
@@ -54,20 +54,25 @@ namespace sdds {
         }
     }
 
+    bool compare(const BakedGood& good1, const BakedGood& good2,const string& sorts) {
+        if (sorts == "Description") return good1.m_desc < good2.m_desc;
+        else if (sorts == "Shelf") return good1.m_life < good2.m_life;
+        else if (sorts == "Stock") return good1.m_stock < good2.m_stock;
+        else if (sorts == "Price") return good1.m_price < good2.m_price;
+    }
+
     void Bakery::showGoods(ostream& os) const {
-        size_t totalStock = std::count_if(m_goods.begin(), m_goods.end(), [](const BakedGood& good)
-        {
-            return good.m_stock;
-        });
-        /*size_t totalPrice = 0;
+        size_t totalStock = 0;
+        double totalPrice = 0;
         for_each(m_goods.begin(), m_goods.end(), [&totalStock, &totalPrice](const BakedGood& good){
            totalStock += good.m_stock;  
            totalPrice += good.m_price;  
-        });*/
+        });
         for_each(m_goods.begin(), m_goods.end(), [&os, totalStock](const BakedGood& good) {
             os << good << endl;
-            os << totalStock;
         });
+        os << "Total Stock : " << totalStock << endl;
+        os << "Total Price : " << totalPrice << endl;
     }
 
     ostream& operator<<(ostream& out, const BakedGood& b) {
@@ -99,24 +104,39 @@ namespace sdds {
     }
 
 
-    void Bakery::sortBakery(std::string sorts) {
-        if (sorts == "Description") 
-        sort(m_goods.begin(), m_goods.end(), [](const BakedGood& good1, const BakedGood& good2){
-            return 
+    void Bakery::sortBakery(const string& sorts) {
+        sort(m_goods.begin(), m_goods.end(), [sorts](const BakedGood& good1, const BakedGood& good2){
+            return compare(good1, good2, sorts);
         });
     }
 
-    std::vector<BakedGood> Bakery::combine() {
-        vector<BakedGood> goods{};
-        return goods;
+    std::vector<BakedGood> Bakery::combine(const Bakery& bake) {
+        vector<BakedGood> returnCollection;
+        Bakery anotherBakery;
+        for_each(m_goods.begin(), m_goods.end(), [&returnCollection](const BakedGood& good) {
+            returnCollection.push_back(good);
+        });
+        for_each(bake.m_goods.begin(), bake.m_goods.end(), [&returnCollection](const BakedGood& good) {
+            returnCollection.push_back(good);
+        });
+        anotherBakery.m_goods = returnCollection;
+        anotherBakery.sortBakery("Price");
+        return anotherBakery.m_goods;
     }
 
-    bool Bakery::inStock() const {
-        return false;
+    bool Bakery::inStock(const string desc, const BakedType& type) const {
+        bool returnBool = false;
+        for_each(m_goods.begin(), m_goods.end(), [desc, type, &returnBool](const BakedGood& good) {
+            if (good.m_desc == desc && good.m_type == type) returnBool = true;
+        });
+        return returnBool;
     }
 
     std::list<BakedGood> Bakery::outOfStock(const BakedType& type) const {
         list<BakedGood> goods;
+        for_each(m_goods.begin(), m_goods.end(), [type, &goods](const BakedGood& good) {
+            if (good.m_type == type && good.m_stock == 0) goods.push_back(good);
+        });
         return goods;
     }
     
