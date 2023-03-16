@@ -77,8 +77,10 @@ namespace sdds {
     }
 
     CustomerOrder::~CustomerOrder() {
-        for (auto i = 0u; i < m_cntItem; ++i) {
-            delete m_lstItem[i];
+        if (m_lstItem != nullptr) {
+            for (auto i = 0u; i < m_cntItem; ++i) {
+                delete m_lstItem[i];
+            }
         }
         delete[] m_lstItem;
     }
@@ -110,11 +112,42 @@ namespace sdds {
     }
 
     void CustomerOrder::fillItem(sdds::Station& station, std::ostream& os) {
-        
+        bool isItemHere = false;
+        size_t index = -1;
+
+        for (auto i = 0u; i < m_cntItem; ++i) {
+            if (m_lstItem[i]->m_itemName == station.getItemName()) {
+                isItemHere = true;
+                index = i;
+            }
+        }
+
+        if (isItemHere && station.getQuantity() > 0) {
+            m_lstItem[index]->m_isFilled = true;
+            station.updateQuantity();
+            os << "Filled " << m_name << ", PRODUCT[ " << m_lstItem[index]->m_itemName << "]" << endl;
+        }
+        else {
+            os << "Unable " << m_name << ", PRODUCT[ " << m_lstItem[index]->m_itemName << "]" << endl;
+        }
     }
 
     void CustomerOrder::display(std::ostream& os) const {
-    
+        os << m_name << " - " << m_product << endl;
+        for (auto i = 0u; i < m_cntItem; ++i) {
+            os << "[";
+            os.width(6);
+            os.fill('0');
+            os << m_lstItem[i]->m_serialNumber << "] ";
+            os << left;
+            os.fill(' ');
+            os.width(m_widthField + 3);
+            os << m_lstItem[i]->m_itemName << "- ";
+            if (m_lstItem[i]->m_isFilled == true) {
+                os << "Filled" << endl;
+            }
+            else os << "TO BE FILLED" << endl;
+        }
     }
 
 }
