@@ -59,6 +59,7 @@ namespace sdds {
         else if (sorts == "Shelf") return good1.m_life < good2.m_life;
         else if (sorts == "Stock") return good1.m_stock < good2.m_stock;
         else if (sorts == "Price") return good1.m_price < good2.m_price;
+        else return "Invalid String";
     }
 
     void Bakery::showGoods(ostream& os) const {
@@ -71,8 +72,8 @@ namespace sdds {
         for_each(m_goods.begin(), m_goods.end(), [&os, totalStock](const BakedGood& good) {
             os << good << endl;
         });
-        os << "Total Stock : " << totalStock << endl;
-        os << "Total Price : " << totalPrice << endl;
+        os << "Total Stock: " << totalStock << endl;
+        os << "Total Price: " << totalPrice << endl;
     }
 
     ostream& operator<<(ostream& out, const BakedGood& b) {
