@@ -17,7 +17,6 @@ namespace sdds {
 
     CustomerOrder::CustomerOrder(const std::string info) {
         Utilities utLocal;
-        utLocal.setDelimiter('|');
         size_t pos = 0u;
         bool next = true;
 
@@ -37,7 +36,7 @@ namespace sdds {
             pos = itemsStart;
             next = true;
             m_cntItem = count;
-            m_lstItem = new Item*[m_cntItem + 1];
+            m_lstItem = new Item*[m_cntItem];
             count = 0;
             while (next) {
                 auto temp = utLocal.extractToken(info, pos, next);
@@ -46,7 +45,7 @@ namespace sdds {
             }
 
             //to update the widthField
-            m_widthField = utLocal.getFieldWidth();
+            if (m_widthField < utLocal.getFieldWidth()) m_widthField = utLocal.getFieldWidth();
 
         }
         catch (const char* err) {
@@ -79,10 +78,10 @@ namespace sdds {
     CustomerOrder::~CustomerOrder() {
         if (m_lstItem != nullptr) {
             for (auto i = 0u; i < m_cntItem; ++i) {
-                delete m_lstItem[i];
+          //      delete m_lstItem[i];
             }
         }
-        delete[] m_lstItem;
+        //delete[] m_lstItem;
     }
 
     bool CustomerOrder::isOrderFilled() const {
@@ -127,7 +126,7 @@ namespace sdds {
             station.updateQuantity();
             os << "Filled " << m_name << ", PRODUCT[ " << m_lstItem[index]->m_itemName << "]" << endl;
         }
-        else {
+        else if (isItemHere && station.getQuantity() == 0) {
             os << "Unable " << m_name << ", PRODUCT[ " << m_lstItem[index]->m_itemName << "]" << endl;
         }
     }

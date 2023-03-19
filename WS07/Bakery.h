@@ -1,11 +1,17 @@
+/*
+    Name - Krinskumar Bhaveshkumar Vaghasia
+    Seneca ID - 169722212
+    Seneca email - kvaghasia@myseneca.ca
+    Date of Completion - 1st Feb, 2023
+*/
+// I have done all the coding by myself and only copied the code that my professor provided to complete my workshops and assignments.
+
 #ifndef SDDS_BAKERY_H
 #define SDDS_BAKERY_H
 
 #include <string>
 #include <list>
 #include <vector>
-
-// count in the bakery class, default constructor and compare friend 
 
 
 namespace sdds {
@@ -21,13 +27,11 @@ namespace sdds {
         size_t m_stock;
         double m_price;
         friend std::ostream& operator<<(std::ostream& out, const BakedGood& b);
-        friend bool compare(const BakedGood& good1, const BakedGood& good2, const std::string& sorts);
     };
 
     class Bakery {
         private:
             std::vector<BakedGood> m_goods;
-            size_t m_count = 0;
         public:
             Bakery() = default;
             Bakery(std::string name);
