@@ -1,3 +1,10 @@
+/*
+    Name - Krinskumar Bhaveshkumar Vaghasia
+    Seneca ID - 169722212
+    Seneca email - kvaghasia@myseneca.ca
+    Date of Completion - 20 March, 2023
+*/
+// I have done all the coding by myself and only copied the code that my professor provided to complete my workshops and assignments.
 #include <iostream>
 #include <utility>
 #include "CustomerOrder.h"
@@ -69,7 +76,14 @@ namespace sdds {
         m_name = newOrder.m_name;
         m_product = newOrder.m_product;
         m_cntItem = newOrder.m_cntItem;
-        m_widthField = newOrder.m_widthField;
+
+        if (m_lstItem != nullptr) {
+            for (auto i = 0u; i < m_cntItem; ++i) {
+                delete m_lstItem[i];
+            }
+        }
+        delete[] m_lstItem;
+
         m_lstItem = newOrder.m_lstItem;
         newOrder.m_lstItem = nullptr;
         return *this;
@@ -78,10 +92,10 @@ namespace sdds {
     CustomerOrder::~CustomerOrder() {
         if (m_lstItem != nullptr) {
             for (auto i = 0u; i < m_cntItem; ++i) {
-          //      delete m_lstItem[i];
+                delete m_lstItem[i];
             }
         }
-        //delete[] m_lstItem;
+        delete[] m_lstItem;
     }
 
     bool CustomerOrder::isOrderFilled() const {

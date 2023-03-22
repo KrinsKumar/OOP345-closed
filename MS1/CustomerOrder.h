@@ -1,3 +1,10 @@
+/*
+    Name - Krinskumar Bhaveshkumar Vaghasia
+    Seneca ID - 169722212
+    Seneca email - kvaghasia@myseneca.ca
+    Date of Completion - 20 March, 2023
+*/
+// I have done all the coding by myself and only copied the code that my professor provided to complete my workshops and assignments.
 #ifndef SDDS_CUSTOMERSORDER_H
 #define SDDS_CUSTOMERSORDER_H
 
