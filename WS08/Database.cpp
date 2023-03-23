@@ -6,7 +6,7 @@ using namespace std;
 
 namespace sdds {
 
-    shared_ptr<Database> m_pDatabase = nullptr;
+    shared_ptr<Database> Database::m_pDatabase = nullptr;
 
     Database::Database(const std::string& filename) {
         cout << "[" << this << "] Database(const std::string&)" << endl;
@@ -15,7 +15,7 @@ namespace sdds {
 
         size_t i;
 
-        for (i = 0; file || i < 20; ++i) {
+        for (i = 0; file && i < 20; ++i) {
             string temp;
 
             getline(file, temp, ' ');
@@ -37,15 +37,20 @@ namespace sdds {
 
 
 
-    std::shared_ptr<Database> getInstance(const string& filename) {
-        if (m_pDatabase != nullptr) {
-            Database temp(filename);
+    std::shared_ptr<Database> Database::getInstance(const string& filename) {
+        if (m_pDatabase == nullptr) {
+            shared_ptr<Database> temp(new Database(filename));
+            m_pDatabase = temp;
+            return temp;
         } else return m_pDatabase;
     }
 
     Err_Status Database::GetValue(const std::string& key, std::string& value) {
         for (auto i = 0u; i < m_size; ++i) {
-            if (key == m_keys[i] && value == m_values[i]) return Err_Status::Err_Success;
+            if (key == m_keys[i]) {
+                value = m_values[i];
+                return Err_Status::Err_Success;
+            }
         }
         return Err_Status::Err_NotFound;
     }
@@ -62,13 +67,14 @@ namespace sdds {
 
     Database::~Database() {
         cout << "[" << this << "] ~Database()" << endl;
-        ofstream file(m_file);
+        ofstream file(m_file + ".bkp.txt");
         for (auto i = 0u; i < m_size; ++i) {
             file.width(25);
             file.fill(' ');
+            file.setf(ios::left);
             file << m_keys[i];
             file << m_values[i] << endl;
+            file.unsetf(ios::left);
         }
     }
-
 }
