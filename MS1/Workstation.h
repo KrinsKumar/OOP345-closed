@@ -14,7 +14,7 @@ namespace sdds {
     class Workstation : public Station {
         private:
             std::deque<CustomerOrder> m_orders;
-            Workstation* m_pNextStation;
+            Workstation* m_pNextStation{};
         public:
             Workstation(const std::string readString);
             Workstation(const Workstation& copy) = delete;

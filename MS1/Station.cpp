@@ -78,4 +78,8 @@ namespace sdds {
     }
 
 
+    string Station::getStationName() const {
+        return m_name;
+    }
+
 }

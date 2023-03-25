@@ -11,9 +11,12 @@ namespace sdds {
         private:
             std::vector<Workstation*> m_activeLine;
             size_t m_cntCustomerOrder;
-            Workstation* m_firstStation;
+            Workstation* m_firstStation{};
         public:
             LineManager(const std::string& file, const std::vector<Workstation*>& station);
+            void reorderStations();
+            bool run(std::ostream& os);
+            void display(std::ostream& os) const;
     };
 
 }

@@ -1,9 +1,14 @@
 #include <iostream>
 #include "Workstation.h"
+#include "Station.h"
 
 using namespace std;
 
 namespace sdds {
+
+    std::deque<CustomerOrder> g_pending{};
+    std::deque<CustomerOrder> g_completed{};
+    std::deque<CustomerOrder> g_incomplete{};
 
     Workstation::Workstation(const std::string readString) : Station(readString) {
     }
@@ -52,5 +57,6 @@ namespace sdds {
 
     Workstation& Workstation::operator+=(CustomerOrder&& newOrder) {
         m_orders.push_back(newOrder);
+        return *this;
     }
 }

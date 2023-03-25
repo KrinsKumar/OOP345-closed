@@ -27,6 +27,7 @@ namespace sdds {
             size_t getQuantity();
             void updateQuantity();
             void display(std::ostream& os, bool full) const;
+            std::string getStationName() const;
     };
 
 }

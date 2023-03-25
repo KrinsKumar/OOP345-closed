@@ -7,7 +7,6 @@
 #include <fstream>
 #include <iomanip>
 #include <cstring>
-// why unique_ptr is not a good choice for m_pDatabase
 
 namespace sdds {
 
@@ -28,7 +27,7 @@ namespace sdds {
             Database(const std::string& filename);
             void encryptDecrypt(T& value);
         public:
-            //Database() = delete;
+            Database() = delete;
             static std::shared_ptr<Database<T>> getInstance(const std::string& filename);
             Err_Status GetValue(const std::string& key, T& value);
             Err_Status SetValue(const std::string& key, const T& value);
