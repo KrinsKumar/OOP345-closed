@@ -6,6 +6,7 @@
 #include <iostream>
 #include <fstream>
 #include <iomanip>
+#include <cstring>
 // why unique_ptr is not a good choice for m_pDatabase
 
 namespace sdds {
@@ -20,7 +21,7 @@ namespace sdds {
     class Database {
         private:
             static std::shared_ptr<Database<T>> m_pDatabase;
-            size_t m_size;
+            size_t m_size = 0;
             std::string m_keys[20];
             T m_values[20];
             std::string m_file;
@@ -87,12 +88,10 @@ namespace sdds {
         const char secret[]{ "secret encryption key" };
 
         for (auto i = 0u; i < value.length(); ++i) {
-            for (auto j = 0u; j < 21; ++j) {
+            for (auto j = 0u; j < strlen(secret); ++j) {
                 value[i] = value[i] ^ secret[j];
             }
-
         }
-
     }
 
     template <>
@@ -102,12 +101,11 @@ namespace sdds {
         auto temp = reinterpret_cast<char*>(&value);
 
         for (auto i = 0u; i < sizeof(long long); ++i) {
-            for (auto j = 0u; j < 21; ++j) {
+            for (auto j = 0u; j < strlen(secret); ++j) {
                 temp[i] = temp[i] ^ secret[j];
             }
         }
 
-        value = reinterpret_cast<long long>(temp);
     }
 
     template <typename T>
@@ -136,14 +134,16 @@ namespace sdds {
     Database<T>::~Database() {
         std::cout << "[" << this << "] ~Database()" << std::endl;
         std::ofstream file(m_file + ".bkp.txt");
-        for (auto i = 0u; i < m_size; ++i) {
+
+        
+        for (auto i = 0u; i < m_size - 1; ++i) {
             file.width(25);
             file.fill(' ');
             file.setf(std::ios::left);
             file << m_keys[i];
             file.unsetf(std::ios::left);
             encryptDecrypt(m_values[i]);
-            file << "-> " << m_values[i] << std::endl;
+            file << " -> " << m_values[i] << std::endl;
         }
     }
 }
