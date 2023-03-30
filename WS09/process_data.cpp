@@ -2,8 +2,12 @@
 // process_data.cpp
 // 2021/1/5 - Jeevan Pant
 
-
+#include <fstream>
+#include <iostream>
+#include <string>
 #include "process_data.h"
+
+using namespace std;
 
 namespace sdds_ws9 {
 
@@ -42,10 +46,15 @@ namespace sdds_ws9 {
 		//         into variables "total_items" and "data". Don't forget to allocate
 		//         memory for "data".
 		//       The file is binary and has the format described in the specs.
+        ifstream file(filename,ios::in | ios::binary);
+        if (file) {
+            file.read(reinterpret_cast<char*>(&total_items), 4);
 
-
-
-
+            data = new int[total_items];
+            for (auto i = 0u; i < total_items; ++i) {
+                file.read(reinterpret_cast<char*>(&data[i]), 4);
+            }
+        }
 
 		std::cout << "Item's count in file '"<< filename << "': " << total_items << std::endl;
 		std::cout << "  [" << data[0] << ", " << data[1] << ", " << data[2] << ", ... , "
@@ -62,6 +71,20 @@ namespace sdds_ws9 {
 
 
 	// TODO You create implementation of function operator(). See workshop instructions for details . 
+    int ProcessData::operator()(std::string filename, double& avg, double& variance) {
+        computeAvgFactor(data, total_items, total_items, avg);
+        computeVarFactor(data, total_items, total_items, avg, variance);
+
+        ofstream file(filename, ios::out | ios::binary);
+        const char* temp = reinterpret_cast<const char*>(&total_items);
+        file.write(temp, 4);
+
+        for (auto i = 0u; i < total_items; ++i) {
+            const char* temp = reinterpret_cast<const char*>(&data[i]);
+            file.write(temp, 4);
+        }
+        return 1;
+    }
 
 
 

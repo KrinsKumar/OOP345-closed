@@ -24,13 +24,11 @@ namespace sdds {
 
             void fill(std::ostream& os);
             bool attempToMoveOrder();
-            void setNextStation(Workstation* station);
+            void setNextStation(Workstation* station = nullptr);
             Workstation* getNextStation() const;
             void display(std::ostream& os);
             Workstation& operator+=(CustomerOrder&& newOrder);
-
     };
-
 }
 
 #endif // !SDDS_WORKSTATION_H
