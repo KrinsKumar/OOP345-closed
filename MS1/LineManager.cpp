@@ -1,33 +1,31 @@
 #include <fstream>
 #include <algorithm>
 #include "LineManager.h"
+#include "Utilities.h"
 
 using namespace std;
 
 namespace sdds {
 
     LineManager::LineManager(const std::string& file, const std::vector<Workstation*>& station) {
+        Utilities ut;
+        ut.setDelimiter('|');
         ifstream filee(file);
-        while (filee) {
-            string tempName;
-            getline(filee, tempName, '|');
-            Workstation tempStation(tempName);
-            tempName = "";
-            getline(filee, tempName, '\n');
-            if (tempName != "") {
-                Workstation nextStation(tempName);
-                tempStation.setNextStation(&nextStation);
-                m_activeLine.push_back(&tempStation);
-            }
-            else {
-                // final station
-                m_activeLine.push_back(&tempStation);
-            }
+        string line;
+        while (filee && getline(filee, line)) {
+            bool more = true;
+            size_t pos = 0u;
+            string stationName = ut.extractToken(line, pos, more);
+
+            for_each(station.begin(), station.end(), [&](const Workstation* ) {
+                
+            });
+
         }
         m_cntCustomerOrder = g_pending.size();
 
 
-
+        /*
         for_each(m_activeLine.begin(), m_activeLine.end(), [&](const Workstation* station) {
             if (!any_of(m_activeLine.begin(), m_activeLine.end(), [&](const Workstation* cmpStation) {
                 return station->getStationName() == cmpStation->getStationName();
@@ -35,7 +33,7 @@ namespace sdds {
                 m_firstStation = const_cast<Workstation*>(station);
             }
         });
-
+        */
     }
 
     void LineManager::reorderStations() {
@@ -61,9 +59,17 @@ namespace sdds {
         static size_t f_count = 1;
         os << "Line Manager Iteration: " << f_count << endl;
 
-        //g_pending[0];
+        // first loop for if the service is required, if the serivice is required then fill on of the order
+        // the second loop takes an order to another department if there is no work to be done in that station
+
+        //pop from the front of pending and push it to the bed that is the first of the line 
+        //using the += operator 
+        //next we go over the stations and filll if the item is in the order. If all the orders were fullfiled 
+        //second iteration moves the order if service is required
 
         ++f_count;
+        //if the sum of completed of incomplete is the same then the work was done 
+        // remove the -1 after the length in the in the extract token function
         return false;
     }
 
