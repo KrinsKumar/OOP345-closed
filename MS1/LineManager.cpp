@@ -17,40 +17,93 @@ namespace sdds {
             size_t pos = 0u;
             string stationName = ut.extractToken(line, pos, more);
 
-            for_each(station.begin(), station.end(), [&](const Workstation* ) {
-                
-            });
-
+            /*for_each(station.begin(), station.end(), [&](Workstation* thisStation) {
+                if (thisStation->getStationName() == stationName) {
+                    if (more == true) {
+                        stationName = ut.extractToken(line, pos, more);
+                        for_each(station.begin(), station.end(), [&](Workstation* thatStation) {
+                            if (thatStation->getStationName() == stationName) {
+                                thisStation->setNextStation(thatStation);
+                                m_activeLine.push_back(thisStation);
+                            }
+                        });
+                    }
+                    else {
+                        m_activeLine.push_back(thisStation);
+                    }
+                }
+            });*/
+            for (auto i = 0u; i < station.size(); ++i) {
+                if (station[i]->getStationName() == stationName) {
+                    if (more == true) {
+                        stationName = ut.extractToken(line, pos, more); 
+                        for (auto j = 0u; j < station.size(); ++j) {
+                            if (station[j]->getStationName() == stationName) {
+                                station[i]->setNextStation(station[j]);
+                                m_activeLine.push_back(station[i]);
+                            }
+                        }
+                    }
+                    else {
+                        m_activeLine.push_back(station[i]);
+                    }
+                }
+                }
         }
         m_cntCustomerOrder = g_pending.size();
 
-
-        /*
-        for_each(m_activeLine.begin(), m_activeLine.end(), [&](const Workstation* station) {
-            if (!any_of(m_activeLine.begin(), m_activeLine.end(), [&](const Workstation* cmpStation) {
-                return station->getStationName() == cmpStation->getStationName();
-            })) {
-                m_firstStation = const_cast<Workstation*>(station);
+        //to find the first station
+        /*for_each(m_activeLine.begin(), m_activeLine.end(), [&](const Workstation* thisStation) {
+            bool isStationUsed = true;
+            for_each(m_activeLine.begin(), m_activeLine.end(), [&](const Workstation* thatStation) {
+                if (thisStation != thatStation)
+                if (thisStation->getStationName() == thatStation->getNextStation()->getStationName()) {
+                    isStationUsed = false;
+                }
+            });
+            if (isStationUsed) {
+                m_firstStation = const_cast<Workstation*>(thisStation);
             }
-        });
-        */
+        });*/
+
+        for (auto i = 0u; i < m_activeLine.size(); ++i) {
+            bool isStationUsed = true;
+            for (auto j = 0u; j < m_activeLine.size(); ++j) {
+                
+                if (m_activeLine[i] != m_activeLine[j])
+                if (m_activeLine[i]->getStationName() == m_activeLine[j]->getNextStation()->getStationName()) {
+                    isStationUsed = false;
+                }
+            }
+            
+            if (isStationUsed) {
+                m_firstStation = const_cast<Workstation*>(m_activeLine[i]);
+            }
+        }
+             
     }
 
     void LineManager::reorderStations() {
-        Workstation* thisStation = m_firstStation;
-        vector<string> newOrder;
-        newOrder.push_back(thisStation->getStationName());
+        string thisStation = m_firstStation->getStationName();
         vector<Workstation*> correctOrder;
 
-
-        for (auto i = 0u; i < m_cntCustomerOrder; ++i) {
-            for_each(m_activeLine.begin(), m_activeLine.end(), [&](const Workstation* station) {
-                if (station->getStationName() == thisStation->getStationName()) {
-                    thisStation = station->getNextStation();
-                    correctOrder.push_back(const_cast<Workstation*>(station));
+        for_each(m_activeLine.begin(), m_activeLine.end(), [&](const Workstation* temp) {
+            for_each(m_activeLine.begin(), m_activeLine.end(), [&](const Workstation* thatStation) {
+                if (thatStation->getStationName() == thisStation) {
+                    correctOrder.push_back(const_cast<Workstation*>(thatStation));
+                    thisStation = thatStation->getNextStation()->getStationName();
                 }
             });
-        }
+        });
+        /*
+        for (auto i = 0u; i < m_activeLine.size(); ++i) {
+            for (auto j = 0u; j < m_activeLine.size(); ++j) {
+                if (thisStation == m_activeLine[j]->getStationName()) {
+                    correctOrder.push_back(m_activeLine[j]);
+                    thisStation = m_activeLine[j]->getStationName();
+                }
+            }
+        }*/
 
         m_activeLine = correctOrder;
     }
