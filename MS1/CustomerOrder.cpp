@@ -130,7 +130,8 @@ namespace sdds {
         size_t index = -1;
 
         for (auto i = 0u; i < m_cntItem; ++i) {
-            if (m_lstItem[i]->m_itemName == station.getItemName()) {
+            if (m_lstItem[i]->m_itemName == station.getItemName() &&
+                !m_lstItem[i]->m_isFilled) {
                 isItemHere = true;
                 index = i;
             }
@@ -139,10 +140,10 @@ namespace sdds {
         if (isItemHere && station.getQuantity() > 0) {
             m_lstItem[index]->m_isFilled = true;
             station.updateQuantity();
-            os << "Filled " << m_name << ", PRODUCT[ " << m_lstItem[index]->m_itemName << "]" << endl;
+            os << "    Filled " << m_name << ", " << m_product << " [" << m_lstItem[index]->m_itemName << "]" << endl;
         }
         else if (isItemHere && station.getQuantity() == 0) {
-            os << "Unable " << m_name << ", PRODUCT[ " << m_lstItem[index]->m_itemName << "]" << endl;
+            os << "    Unable to fill " << m_name << ", " << m_product << " [" << m_lstItem[index]->m_itemName << "]" << endl;
         }
     }
 

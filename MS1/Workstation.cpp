@@ -1,4 +1,12 @@
+/*
+    Name - Krinskumar Bhaveshkumar Vaghasia
+    Seneca ID - 169722212
+    Seneca email - kvaghasia@myseneca.ca
+    Date of Completion - 1 April, 2023
+*/
+// I have done all the coding by myself and only copied the code that my professor provided to complete my workshops and assignments.
 #include <iostream>
+#include <utility>
 #include "Workstation.h"
 #include "Station.h"
 
@@ -13,7 +21,7 @@ namespace sdds {
     Workstation::Workstation(const std::string readString) : Station(readString) {
     }
 
-    void Workstation::fill(std::ostream& os) {
+    void Workstation::fill(std::ostream& os) { 
         if (m_orders.size() > 0) {
             m_orders.front().fillItem(*this, os);
         }
@@ -21,24 +29,22 @@ namespace sdds {
 
     bool Workstation::attempToMoveOrder() {
         bool returnBool = false;
-        if (getQuantity() == 0 || m_orders.front().isItemFilled(getItemName())) {
-            returnBool = true;
-            if (m_pNextStation == nullptr) {
-                if (m_orders.front().isItemFilled(getItemName())) {
-                    g_completed.push_back(m_orders.front());
+
+        if (m_orders.size() > 0) {
+            if (m_orders.front().isItemFilled(getItemName()) || getQuantity() == 0) {
+                if (m_pNextStation == nullptr) {
+                    if (m_orders.front().isOrderFilled()) 
+                        g_completed.push_back(move(m_orders.front()));
+                    else 
+                        g_incomplete.push_back(move(m_orders.front()));
                     m_orders.pop_front();
                 }
                 else {
-                    g_incomplete.push_back(m_orders.front());
+                    m_pNextStation->m_orders.push_back(move(m_orders.front()));
                     m_orders.pop_front();
                 }
             }
-            else {
-                m_pNextStation->m_orders.push_back(m_orders.front());
-                m_orders.pop_front();
-            }
         }
-
         return returnBool;
     }
 
@@ -50,13 +56,16 @@ namespace sdds {
         return m_pNextStation;
     }
 
-    void Workstation::display(std::ostream& os) {
+    void Workstation::display(std::ostream& os) const {
         os << getItemName();
-        os << " --> " << m_pNextStation->getItemName();
+        if (m_pNextStation == nullptr)
+            os << " --> " << "End of Line";
+        else os << " --> " << m_pNextStation->getItemName();
+        os << endl;
     }
 
     Workstation& Workstation::operator+=(CustomerOrder&& newOrder) {
-        m_orders.push_back(newOrder);
+        m_orders.push_back(move(newOrder));
         return *this;
     }
 }

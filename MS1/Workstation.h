@@ -1,7 +1,16 @@
+/*
+    Name - Krinskumar Bhaveshkumar Vaghasia
+    Seneca ID - 169722212
+    Seneca email - kvaghasia@myseneca.ca
+    Date of Completion - 1 April, 2023
+*/
+// I have done all the coding by myself and only copied the code that my professor provided to complete my workshops and assignments.
 #ifndef SDDS_WORKSTATION_H
 #define SDDS_WORKSTATION_H
 
 #include <deque>
+#include <string>
+#include <iostream>
 #include "CustomerOrder.h"
 
 namespace sdds {
@@ -26,7 +35,7 @@ namespace sdds {
             bool attempToMoveOrder();
             void setNextStation(Workstation* station = nullptr);
             Workstation* getNextStation() const;
-            void display(std::ostream& os);
+            void display(std::ostream& os) const;
             Workstation& operator+=(CustomerOrder&& newOrder);
     };
 }

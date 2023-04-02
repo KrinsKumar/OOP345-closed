@@ -40,13 +40,13 @@ namespace sdds {
         return m_name;
     }
 
-    size_t Station::getNextSerialNumber() {
+    size_t Station::getNextSerialNumber()  {
         auto returnNumber = m_srlNumber;
         ++m_srlNumber;
         return returnNumber;
     }
 
-    size_t Station::getQuantity() {
+    size_t Station::getQuantity() const {
         return m_cnt;
     }
 

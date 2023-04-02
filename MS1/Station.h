@@ -9,6 +9,7 @@
 #define SDDS_STATION_H
 
 #include <string>
+#include <iostream>
 
 namespace sdds {
 
@@ -24,7 +25,7 @@ namespace sdds {
             Station(const std::string str);
             const std::string& getItemName() const;
             size_t getNextSerialNumber();
-            size_t getQuantity();
+            size_t getQuantity() const;
             void updateQuantity();
             void display(std::ostream& os, bool full) const;
             std::string getStationName() const;

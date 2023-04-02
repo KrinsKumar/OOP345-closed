@@ -43,7 +43,7 @@ namespace sdds {
             next_pos = position + 1;
         }
         else {
-            if (str.length() > 1) returnString = str.substr(next_pos, str.length() - 1);
+            if (str.length() > 1) returnString = str.substr(next_pos, str.length());
             else returnString = str;
 
             while (returnString[0] == ' ') returnString.erase(0, 1);
