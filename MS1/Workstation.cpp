@@ -40,7 +40,7 @@ namespace sdds {
                     m_orders.pop_front();
                 }
                 else {
-                    m_pNextStation->m_orders.push_back(move(m_orders.front()));
+                    *m_pNextStation += move(m_orders.front());
                     m_orders.pop_front();
                 }
             }
