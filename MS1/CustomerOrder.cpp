@@ -145,6 +145,28 @@ namespace sdds {
         else if (isItemHere && station.getQuantity() == 0) {
             os << "    Unable to fill " << m_name << ", " << m_product << " [" << m_lstItem[index]->m_itemName << "]" << endl;
         }
+        /*
+         bool filled{};
+      for (size_t i = 0; i < m_cntItem && !filled; i++)
+      {
+         if (station.getItemName() == m_lstItem[i]->m_itemName && m_lstItem[i]->m_isFilled == false)
+         {
+            if (station.getQuantity() > 0)
+            {
+               station.updateQuantity();
+               m_lstItem[i]->m_isFilled = true;
+               m_lstItem[i]->m_serialNumber = station.getNextSerialNumber();
+               filled = true;
+               os << "    Filled " << m_name << ", " << m_product << " [" << m_lstItem[i]->m_itemName << "]";
+            }
+            else
+            {
+               os << "    Unable to fill " << m_name << ", " << m_product << " " << "[" << m_lstItem[i]->m_itemName << "]";
+            }
+            os << std::endl;
+         }
+      }
+        */
     }
 
     void CustomerOrder::display(std::ostream& os) const {
