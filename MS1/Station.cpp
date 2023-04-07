@@ -58,7 +58,9 @@ namespace sdds {
     void Station::display(std::ostream& os, bool full) const {
         os.fill('0');
         os.width(3);
+        os.setf(ios::right);
         os << m_id << " | ";
+        os.unsetf(ios::right);
         os.fill(' ');
         os.setf(ios::left);
         os.width(m_widthField);
